@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>قطتي ميمي</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app">
+<h1>قطتي ميمي 🐱</h1>
+<div class="coins" id="coins">🪙 0</div>
+<div class="stats" id="stats"></div>
+
+<div class="stage" id="stage">
+  <!-- الغرفة -->
+  <div class="window"></div><div class="curtain c1"></div><div class="curtain c2"></div>
+  <div class="frame f1">🐱</div><div class="frame f2">💖</div>
+  <div class="floor"></div><div class="rug"></div>
+  <div class="bed"><i class="base"></i><i class="mat"></i><i class="head"></i><i class="pil"></i></div>
+  <div class="blanket" id="blanket"></div>
+  <div class="bubble" id="say">أهلاً يا زينة! 😺</div>
+  <div class="ball" id="ball"><i></i></div>
+  <div id="catwrap">
+  <svg id="cat" viewBox="0 0 300 300" role="img" aria-label="القطة ميمي">
+    <defs>
+      <radialGradient id="fur" cx=".35" cy=".28" r=".85"><stop offset="0" stop-color="#FFC2D9"/><stop offset=".55" stop-color="#FF8DB5"/><stop offset="1" stop-color="#D94A83"/></radialGradient>
+      <radialGradient id="belly" cx=".4" cy=".3" r=".8"><stop offset="0" stop-color="#fff"/><stop offset="1" stop-color="#FFD3E5"/></radialGradient>
+      <radialGradient id="ear" cx=".5" cy=".3" r=".9"><stop offset="0" stop-color="#FFA1C6"/><stop offset="1" stop-color="#D94A83"/></radialGradient>
+      <radialGradient id="iris" cx=".4" cy=".35" r=".8"><stop offset="0" stop-color="#C45CFF"/><stop offset="1" stop-color="#6A1B9A"/></radialGradient>
+      <linearGradient id="tailg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFA1C6"/><stop offset="1" stop-color="#D94A83"/></linearGradient>
+    </defs>
+    <ellipse cx="150" cy="290" rx="100" ry="9" fill="#c2185b" opacity=".18"/>
+    <path class="tail" d="M215 255 C278 255 290 195 258 160" fill="none" stroke="url(#tailg)" stroke-width="28" stroke-linecap="round"/>
+    <g class="body">
+      <ellipse cx="150" cy="226" rx="84" ry="64" fill="url(#fur)"/>
+      <ellipse cx="150" cy="243" rx="46" ry="42" fill="url(#belly)"/>
+      <ellipse cx="108" cy="280" rx="24" ry="13" fill="url(#fur)"/><ellipse cx="192" cy="280" rx="24" ry="13" fill="url(#fur)"/>
+      <path d="M98 282h20M182 282h20" stroke="#D94A83" stroke-width="3" stroke-linecap="round" opacity=".6"/>
+    </g>
+    <g id="head">
+      <polygon points="80,100 86,26 142,70" fill="url(#ear)"/><polygon points="95,88 97,48 127,72" fill="#FFC2D9"/>
+      <polygon points="220,100 214,26 158,70" fill="url(#ear)"/><polygon points="205,88 203,48 173,72" fill="#FFC2D9"/>
+      <circle cx="150" cy="140" r="78" fill="url(#fur)"/>
+      <path d="M150 64v18M131 68l4 15M169 68l-4 15" stroke="#D94A83" stroke-width="7" stroke-linecap="round" opacity=".7"/>
+      <ellipse cx="150" cy="170" rx="40" ry="29" fill="url(#belly)"/>
+      <circle cx="96" cy="162" r="13" fill="#FF6FA5" opacity=".45"/><circle cx="204" cy="162" r="13" fill="#FF6FA5" opacity=".45"/>
+      <ellipse cx="112" cy="92" rx="30" ry="14" fill="#fff" opacity=".28" transform="rotate(-25 112 92)"/>
+      <g id="eyes"></g>
+      <path d="M142 153h16l-8 10z" fill="#E0507A"/><ellipse cx="146" cy="155" rx="3" ry="1.6" fill="#fff" opacity=".7"/>
+      <g id="mouth"></g>
+      <g stroke="#5A1F45" stroke-width="3" stroke-linecap="round" opacity=".5"><path d="M72 160l-38-7M72 171l-38 8M228 160l38-7M228 171l38 8"/></g>
+    </g>
+  </svg>
+  </div>
+</div>
+
+<div class="menu">
+  <h2>🍽️ الأكل</h2><div class="row" id="foods"></div>
+  <h2>🥤 الشرب</h2><div class="row" id="drinks"></div>
+  <h2>🎮 الألعاب</h2>
+  <div class="row"><button class="act" id="gOpen"><b>🎮</b>اختاري لعبة</button></div>
+  <h2>🎉 لعب وغنا</h2>
+  <div class="row">
+    <button class="act" id="bBall"><b>⚽</b>العبي بالكورة</button>
+    <button class="act" id="bSing"><b>🎤</b>يلا نغني</button>
+    <button class="act" id="bSleep"><b>🛏️</b>نوم</button>
+  </div>
+</div>
+<p class="hint"> اضغطي عليها لتحضنيها 🤗</p>
+</div>
+
+<!--
+  ===================== الأغنية 🎵 =====================
+  لتغيير الأغنية:
+  1) ضع ملف الأغنية (mp3) في نفس مجلد index.html
+  2) غيّر اسم الملف في المتغير SONG_FILE داخل الـ script بالأسفل (ابحث عن: SONG_FILE)
+  لو الملف غير موجود، ستغني ميمي لحناً بسيطاً بدلاً منه.
+-->
+<audio id="song" preload="none"></audio>
+
+<!-- لوحة اختيار اللعبة -->
+<div class="game" id="picker" hidden>
+  <div class="gbar"><b>اختاري لعبة 🎮</b><button id="px" aria-label="إغلاق">✖</button></div>
+  <div class="pgrid" id="pgrid"></div>
+</div>
+<!-- نافذة الألعاب -->
+<div class="game" id="game" hidden>
+  <div class="gbar"><button id="gx" aria-label="إغلاق">✖</button><b id="gt"></b></div>
+  <canvas id="cv" width="320" height="420"></canvas>
+  <div class="gctl" id="gctl"><button id="gl">◀</button><button id="gr">▶</button></div>
+</div>
+<script>
+const $=id=>document.getElementById(id), sleep=ms=>new Promise(r=>setTimeout(r,ms));
+const clamp=v=>Math.max(0,Math.min(100,v));
+/* ============ غيّري اسم ملف الأغنية من هنا فقط 👇 ============ */
+const SONG_FILE='Download.mp4';   // مثال: 'yalla-nghanny.mp3'
+/* ============================================================== */
+$('song').src=SONG_FILE;
+const S={food:70,water:70,joy:70,rest:70}, ICON={food:'🍗',water:'💧',joy:'💖',rest:'🌙'};
+let mood='normal',lock,gaze={x:0,y:0,t:0},ac,singing=false,busy=false,singIv;
+
+$('stats').innerHTML=Object.keys(S).map(k=>`<div class="stat">${ICON[k]}<div class="bar"><i id="b-${k}"></i></div></div>`).join('');
+
+const eye=(x,d=0)=>`<ellipse cx="${x}" cy="${130+d}" rx="18" ry="20" fill="#fff" stroke="#C4568A" stroke-width="2"/><g class="pupil"><circle cx="${x}" cy="${132+d}" r="11.5" fill="url(#iris)"/><circle cx="${x}" cy="${132+d}" r="5.5" fill="#2a0f24"/><circle cx="${x+4}" cy="${127+d}" r="3.5" fill="#fff"/></g>`;
+const arc='fill="none" stroke="#5A1F45" stroke-width="7" stroke-linecap="round"';
+const EYES={
+ normal:eye(114)+eye(186),
+ sad:eye(114,5)+eye(186,5)+'<path d="M92 108l38 11M208 108l-38 11" stroke="#5A1F45" stroke-width="6" stroke-linecap="round"/><path d="M104 156q-7 18 0 24q9-6 0-24z" fill="#6EC6FF"/>',
+ happy:`<path d="M96 138q18-26 36 0M168 138q18-26 36 0" ${arc}/>`,
+ sleep:`<path d="M96 134h36M168 134h36" ${arc}/>`};
+const ml='stroke="#5A1F45" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"';
+const MOUTH={
+ normal:`<path d="M150 163v8M150 171q-12 10-22 2M150 171q12 10 22 2" fill="none" ${ml}/>`,
+ happy:`<path d="M124 172q26 32 52 0z" fill="#B3263E" ${ml}/><path d="M139 186q11 9 22 0q-11-6-22 0z" fill="#FF8FAE"/>`,
+ sad:`<path d="M130 188q20-18 40 0" fill="none" ${ml}/>`,
+ eat:`<ellipse cx="150" cy="181" rx="14" ry="12" fill="#B3263E" ${ml}/>`,
+ sleep:`<path d="M136 174q14 8 28 0" fill="none" ${ml}/>`,
+ sing:`<ellipse cx="150" cy="184" rx="18" ry="19" fill="#B3263E" ${ml}/><ellipse cx="150" cy="194" rx="10" ry="6" fill="#FF8FAE"/>`};
+
+function render(){
+  const m=(mood==='eat'||mood==='sing')?'happy':mood;
+  $('eyes').innerHTML=EYES[m]; $('mouth').innerHTML=MOUTH[mood];
+  for(const k in S)$('b-'+k).style.width=S[k]+'%';
+  applyGaze();
+}
+function applyGaze(){
+  document.querySelectorAll('.pupil').forEach(p=>p.style.transform=`translate(${gaze.x}px,${gaze.y}px)`);
+  $('head').style.transform=`rotate(${gaze.t}deg)`;
+}
+addEventListener('pointermove',e=>{
+  const r=$('cat').getBoundingClientRect(), dx=e.clientX-(r.left+r.width/2), dy=e.clientY-(r.top+r.height*.45);
+  const nx=clamp((dx+250)/5)/50-1, ny=clamp((dy+250)/5)/50-1;
+  gaze={x:nx*6,y:ny*5,t:nx*4}; applyGaze();
+});
+const say=t=>$('say').textContent=t;
+function setMood(m,ms,text){mood=m;if(text)say(text);render();clearTimeout(lock);lock=setTimeout(()=>{mood='normal';auto()},ms)}
+function auto(){
+  const low=Object.entries(S).sort((a,b)=>a[1]-b[1])[0];
+  if(low[1]<30){mood='sad';say({food:'أنا جعانة 😿',water:'أنا عطشانة 😿',joy:'عايزة ألعب 😿',rest:'أنا تعبانة 😿'}[low[0]])}
+  else if(mood!=='sleep'){mood='normal';say('ميااو 😺')}
+  render();
+}
+function pop(e){const d=document.createElement('div');d.className='float';d.textContent=e;d.style.left=(30+Math.random()*40)+'%';d.style.top='35%';$('stage').appendChild(d);setTimeout(()=>d.remove(),1200)}
+function wiggle(){const w=$('catwrap');w.classList.remove('wiggle');void w.offsetWidth;w.classList.add('wiggle')}
+function tone(f,d=.4,type='triangle'){
+  try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();const o=ac.createOscillator(),g=ac.createGain(),t=ac.currentTime;
+  o.type=type;o.frequency.setValueAtTime(f,t);if(type==='triangle'&&d>.35){o.frequency.linearRampToValueAtTime(f*1.4,t+.15);o.frequency.linearRampToValueAtTime(f*.8,t+d)}
+  g.gain.setValueAtTime(.17,t);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g).connect(ac.destination);o.start();o.stop(t+d+.05)}catch(e){}
+}
+const wake=()=>{if(mood==='sleep')mood='normal'};
+
+const FOODS=[
+ {e:'🐟',n:'سمك',f:{food:25,joy:5},s:'ممم! سمك حلو! 🐟'},
+ {e:'🍗',n:'فراخ',f:{food:30},s:'فراخ! يمي! 🍗'},
+ {e:'🍰',n:'كيك',f:{food:12,joy:25},s:'كيك؟! أحلى حاجة! 🍰'},
+ {e:'🍓',n:'فراولة',f:{food:10,water:10,joy:10},s:'فراولة حلوة! 🍓'},
+ {e:'🍪',n:'بسكوت',f:{food:12,joy:12},s:'كرانش كرانش! 🍪'}];
+const DRINKS=[
+ {e:'🥛',n:'لبن',f:{water:15,food:12,joy:8},s:'لبن! يمي! 🥛'},
+ {e:'💧',n:'مية',f:{water:35},s:'آه! مية باردة! 💧'},
+ {e:'🧃',n:'عصير',f:{water:22,joy:12},s:'عصير فراولة! 🧃'},
+ {e:'🍵',n:'شاي',f:{water:20,rest:10},s:'شاي دافي 🍵'}];
+function use(it){
+  if(busy||singing)return; wake();
+  for(const k in it.f)S[k]=clamp(S[k]+it.f[k]);
+  pop(it.e);wiggle();tone(640,.45);setMood('eat',1300,it.s);
+  setTimeout(()=>{if(!busy&&!singing)setMood('happy',1500,'شكراً يا زينة! 😻')},1300);
+}
+const mk=(arr,id)=>{arr.forEach(it=>{const b=document.createElement('button');b.innerHTML=`<b>${it.e}</b>${it.n}`;b.onclick=()=>use(it);$(id).appendChild(b)})};
+mk(FOODS,'foods');mk(DRINKS,'drinks');
+
+async function playBall(){
+  if(busy||singing)return; busy=true; wake();
+  const w=$('catwrap'),ball=$('ball');let cur=38;
+  w.classList.add('run');mood='happy';say('هيا نجري! 🏃‍♀️');render();
+  for(let i=0;i<5;i++){
+    const bx=16+Math.random()*40;
+    ball.classList.remove('roll');void ball.offsetWidth;ball.classList.add('roll');ball.style.left=bx+'%';
+    await sleep(250);
+    w.style.left=bx+'%';w.style.transform=`translateX(-50%) rotate(${bx>cur?6:-6}deg)`;cur=bx;
+    tone(500+i*80,.12,'square');
+    await sleep(1000);pop('⭐');
+  }
+  w.style.left='38%';w.style.transform='translateX(-50%)';
+  await sleep(1000);w.classList.remove('run');
+  S.joy=clamp(S.joy+35);S.rest=clamp(S.rest-15);S.food=clamp(S.food-8);S.water=clamp(S.water-8);
+  busy=false;setMood('happy',2000,'كان يوم جميل! 🎉');
+}
+const TUNE=[[523,.3],[587,.3],[659,.3],[523,.3],[659,.3],[784,.55],[698,.3],[659,.3],[587,.3],[659,.6],[523,.3],[587,.3],[659,.6],[587,.3],[523,.7]];
+async function sing(){
+  if(singing){stopSing();return}
+  if(busy)return; wake();singing=true;$('bSing').classList.add('on');say('🎤 يلا نغني! 🎶');
+  const a=$('song');let file=false;
+  try{await a.play();file=true;a.onended=stopSing}catch(e){}
+  singIv=setInterval(()=>{mood=mood==='sing'?'happy':'sing';render();pop(['🎵','🎶','♪'][Math.floor(Math.random()*3)]);wiggle()},380);
+  if(!file){for(const[f,d]of TUNE){if(!singing)break;tone(f,d);await sleep(d*1000+40)}if(singing)stopSing()}
+}
+function stopSing(){
+  if(!singing)return;singing=false;clearInterval(singIv);$('bSing').classList.remove('on');
+  const a=$('song');a.pause();try{a.currentTime=0}catch(e){}
+  S.joy=clamp(S.joy+25);setMood('happy',2000,'شكراً على التصفيق! 👏');
+}
+$('bBall').onclick=playBall;$('bSing').onclick=sing;
+/* ===== النوم في السرير ===== */
+let sleeping=false,sleepT,zIv;
+async function goSleep(){
+  if(busy||singing||sleeping)return; busy=true; wake();
+  const w=$('catwrap'); w.classList.add('run'); mood='normal'; say('يلا ننام 🛏️'); render();
+  w.style.left='78%'; w.style.bottom='15%'; w.style.transform='translateX(-50%) scale(.82)';
+  await sleep(1100); w.classList.remove('run');
+  sleeping=true; mood='sleep'; $('blanket').classList.add('on'); say('زززز... 💤'); render();
+  zIv=setInterval(()=>pop('💤'),1400);
+  sleepT=setTimeout(wakeUp,7000); // تصحى لوحدها، أو اضغطي عليها لتصحيها
+}
+function wakeUp(){
+  if(!sleeping)return; clearTimeout(sleepT); clearInterval(zIv); sleeping=false;
+  const w=$('catwrap'); $('blanket').classList.remove('on');
+  S.rest=clamp(S.rest+50); w.style.left='38%'; w.style.bottom=''; w.style.transform='translateX(-50%)';
+  busy=false; setMood('happy',2000,'صباح الخير يا زينة! ☀️');
+}
+$('bSleep').onclick=goSleep;
+$('cat').onclick=()=>{if(sleeping){wakeUp();return}if(busy)return;wake();S.joy=clamp(S.joy+8);pop('💖');wiggle();tone(560,.45);setMood('happy',2200,'بحبك يا زينة 💖')};
+
+setInterval(()=>{if(mood==='sleep'||busy||singing)return;
+  S.food=clamp(S.food-2);S.water=clamp(S.water-3);S.joy=clamp(S.joy-3);S.rest=clamp(S.rest-2);
+  (mood==='normal'||mood==='sad')?auto():render()},3000);
+/* =====================================================
+   الألعاب: لإضافة لعبة جديدة اعملي دالة زي footballGame / carGame
+   ترجع {step(dt), draw(), score, over} وضيفي زرها في القائمة
+   ===================================================== */
+let coins=0,G=null;
+const cv=$('cv'),cx=cv.getContext('2d');
+const em=(e,x,y,s)=>{cx.font=s+'px serif';cx.textAlign='center';cx.textBaseline='middle';cx.fillText(e,x,y)};
+const txt=(t,x,y,s=20,c='#fff')=>{cx.font='800 '+s+'px sans-serif';cx.textAlign='center';cx.fillStyle=c;cx.fillText(t,x,y)};
+function openGame(kind){
+  if(busy||singing)return; busy=true; wake();
+  $('game').hidden=false; const gm=GAMES.find(x=>x[0]===kind);gid=kind;$('picker').hidden=true;$('gt').textContent=gm[1]+' '+gm[2];
+  $('gctl').style.display=kind==='car'?'flex':'none'; $('game').hidden=false;
+  cv.onpointerdown=cv.onpointermove=null;
+  G=gm[3](); G.last=performance.now(); requestAnimationFrame(loop);
+}
+function loop(t){
+  if(!G)return; const dt=Math.min(.05,(t-G.last)/1000); G.last=t; G.step(dt); G.draw();
+  if(G.over){cx.fillStyle='#0008';cx.fillRect(0,0,320,420);txt('انتهت اللعبة! 🎉',160,190,30);txt('النقاط: '+Math.floor(G.score),160,235,26,'#FFD6E8');
+    G.over=false;G.done=true;setTimeout(()=>closeGame(true),1700);return}
+  requestAnimationFrame(loop);
+}
+function closeGame(reward){
+  if(!busy||$('game').hidden)return; const sc=reward&&G?Math.floor(G.score):0; G=null; $('game').hidden=true;
+  coins+=sc; if(gid)best[gid]=Math.max(best[gid]||0,sc); $('coins').textContent='🪙 '+coins;
+  S.joy=clamp(S.joy+Math.min(40,sc*4+5)); S.rest=clamp(S.rest-8); S.food=clamp(S.food-5);
+  busy=false; setMood('happy',2400,sc?'برافو! كسبتي '+sc+' عملة 🪙':'نلعب تاني؟ 🎮'); showPicker();
+}
+$('gx').onclick=()=>closeGame(false);
+let gid,best={};
+function showPicker(){const p=$('pgrid');p.innerHTML='';GAMES.forEach(g=>{const b=document.createElement('button');b.innerHTML=`<b>${g[1]}</b>${g[2]}`+(best[g[0]]?`<br>⭐ ${best[g[0]]}`:'');b.onclick=()=>openGame(g[0]);p.appendChild(b)});$('picker').hidden=false}
+$('gOpen').onclick=()=>{if(!busy&&!singing)showPicker()}; $('px').onclick=()=>$('picker').hidden=true;
+
+/* ⚽ ضربة جزاء: اضغطي في المرمى عشان تسددي، والحارس الدب بيتحرك */
+function footballGame(){
+  const b={x:160,y:370,vx:0,vy:0,fly:false};
+  const g={score:0,shots:0,max:8,kx:160,kd:1,msg:'',mt:0,over:false,done:false};
+  cv.onpointerdown=e=>{ if(b.fly||g.done)return; const r=cv.getBoundingClientRect(), tx=(e.clientX-r.left)*320/r.width;
+    b.vx=(tx-b.x)/.55; b.vy=-500; b.fly=true; tone(300,.15,'square'); };
+  g.step=dt=>{
+    g.kx+=g.kd*(130+g.score*20)*dt; if(g.kx>245||g.kx<75)g.kd*=-1; g.mt-=dt;
+    if(b.fly){ b.x+=b.vx*dt; b.y+=b.vy*dt;
+      if(b.y<92){ const save=Math.abs(b.x-g.kx)<36, inGoal=b.x>50&&b.x<270;
+        g.msg=save?'تصدّى الحارس! 🧤':inGoal?'جووول! ⚽🎉':'برّه المرمى! 😅'; g.mt=1;
+        if(!save&&inGoal){g.score++;tone(880,.25)}else tone(180,.3,'sawtooth');
+        g.shots++; b.x=160;b.y=370;b.fly=false; if(g.shots>=g.max)g.over=true; } } };
+  g.draw=()=>{
+    for(let i=0;i<7;i++){cx.fillStyle=i%2?'#43A047':'#4CAF50';cx.fillRect(0,i*60,320,60)}
+    cx.fillStyle='#ffffff55';cx.fillRect(46,36,228,62); cx.fillStyle='#fff';cx.fillRect(40,30,240,6);cx.fillRect(40,30,6,70);cx.fillRect(274,30,6,70);
+    cx.strokeStyle='#fff8';cx.lineWidth=3;cx.beginPath();cx.arc(160,370,40,0,7);cx.stroke();
+    em('🐻',g.kx,76,46); em('⚽',b.x,b.y,36-(370-b.y)*.04);
+    txt('الأهداف '+g.score+'  •  الضربات '+g.shots+'/'+g.max,160,18,17);
+    if(g.mt>0)txt(g.msg,160,200,28,'#FFF176'); else if(!b.fly)txt('اضغطي على المرمى للتسديد 👆',160,410,15); };
+  return g;
+}
+
+/* 🚗 سباق سيارات: حركي بالصباع أو الأسهم، اجمعي العملات وتجنبي العوائق */
+function carGame(){
+  const g={score:0,lives:3,x:160,tx:160,t:0,sp:200,ry:0,sw:0,obs:[],over:false,done:false};
+  const mv=e=>{const r=cv.getBoundingClientRect();g.tx=Math.max(70,Math.min(250,(e.clientX-r.left)*320/r.width))};
+  cv.onpointerdown=mv; cv.onpointermove=e=>{if(e.buttons)mv(e)};
+  $('gl').onclick=()=>g.tx=Math.max(70,g.tx-60); $('gr').onclick=()=>g.tx=Math.min(250,g.tx+60);
+  g.step=dt=>{
+    g.t+=dt; g.sp=200+g.t*8; g.x+=(g.tx-g.x)*Math.min(1,10*dt); g.ry=(g.ry+g.sp*dt)%60; g.score+=dt;
+    g.sw-=dt; if(g.sw<=0){g.sw=.5+Math.random()*.4; const c=Math.random()<.35;
+      g.obs.push({x:65+Math.random()*190,y:-30,c,e:c?'🪙':['🚧','🚙','🪨'][Math.floor(Math.random()*3)]})}
+    for(const o of g.obs){ o.y+=g.sp*dt;
+      if(!o.d&&Math.abs(o.x-g.x)<30&&Math.abs(o.y-350)<34){ o.d=1;
+        if(o.c){g.score+=2;tone(900,.1,'square')}else{g.lives--;tone(150,.35,'sawtooth');if(g.lives<=0)g.over=true} } }
+    g.obs=g.obs.filter(o=>o.y<460&&!o.d); };
+  g.draw=()=>{
+    cx.fillStyle='#7CD67C';cx.fillRect(0,0,320,420); cx.fillStyle='#5b5b6b';cx.fillRect(40,0,240,420);
+    cx.fillStyle='#fff';cx.fillRect(36,0,5,420);cx.fillRect(279,0,5,420);
+    for(let y=-60;y<420;y+=60)cx.fillRect(157,y+g.ry,6,30);
+    for(const o of g.obs)em(o.e,o.x,o.y,38);
+    em('🚗',g.x,352,54); em('🐱',g.x,336,24);
+    txt('النقاط '+Math.floor(g.score),70,18,17); txt('❤️'.repeat(Math.max(0,g.lives)),262,18,17); };
+  return g;
+}
+
+/* ========= ألعاب إضافية =========
+   كل لعبة دالة ترجع {step(dt), draw(), score, over}.
+   لإضافة لعبة: اكتبي دالة جديدة وضيفيها في قائمة GAMES بالأسفل [id, أيقونة, اسم, الدالة] */
+const R=(a,b)=>a+Math.random()*(b-a), INK='#5A1F45';
+const px=e=>{const r=cv.getBoundingClientRect();return[(e.clientX-r.left)*320/r.width,(e.clientY-r.top)*420/r.height]};
+const bg=c=>{cx.fillStyle=c;cx.fillRect(0,0,320,420)};
+const hud=g=>{txt('النقاط '+Math.floor(g.score),62,18,16,INK);if(g.t!==undefined)txt('⏱ '+Math.ceil(g.t),160,18,16,INK);if(g.lives)txt('❤️'.repeat(g.lives),265,18,16)};
+const tick=(g,dt)=>{g.t-=dt;if(g.t<=0)g.over=true};
+
+/* 🐟 صيد السمك: حركي السلة والتقطي السمك وتجنبي القنابل */
+function fishGame(){const g={score:0,lives:3,x:160,o:[],sw:0,e:0,over:false};
+  cv.onpointerdown=cv.onpointermove=e=>{if(e.type==='pointerdown'||e.buttons)g.x=Math.max(30,Math.min(290,px(e)[0]))};
+  g.step=dt=>{g.e+=dt;g.sw-=dt;if(g.sw<=0){g.sw=.6;g.o.push({x:R(25,295),y:-20,e:Math.random()<.75?'🐟':'💣'})}
+    for(const o of g.o){o.y+=(150+g.e*6)*dt;if(!o.d&&o.y>350&&Math.abs(o.x-g.x)<40){o.d=1;
+      if(o.e==='🐟'){g.score++;tone(800,.1,'square')}else{g.lives--;tone(150,.3,'sawtooth');if(g.lives<1)g.over=true}}}
+    g.o=g.o.filter(o=>o.y<440&&!o.d)};
+  g.draw=()=>{bg('#BDE7FF');cx.fillStyle='#FFC2DA';cx.fillRect(0,385,320,35);for(const o of g.o)em(o.e,o.x,o.y,34);em('🐱',g.x,362,56);em('🧺',g.x,392,32);hud(g)};
+  return g}
+
+/* 🃏 لعبة الذاكرة: اقلبي الكروت ودوري على الأزواج المتشابهة */
+function memGame(){const E=['🐟','🍰','🐭','🧶','🍓','⚽'];const c=[...E,...E].sort(()=>Math.random()-.5).map(e=>({e,s:0}));let a=null,lk=false;
+  const g={score:0,t:60,pairs:0,over:false};
+  cv.onpointerdown=e=>{if(lk)return;const[x,y]=px(e),col=Math.floor((x-10)/77),row=Math.floor((y-80)/95);
+    if(col<0||col>3||row<0||row>2)return;const k=c[row*4+col];if(k.s)return;k.s=1;tone(500,.08,'square');
+    if(!a){a=k;return}
+    if(a.e===k.e){a.s=k.s=2;a=null;g.score+=5;g.pairs++;tone(900,.2);if(g.pairs===6){g.score+=Math.floor(g.t/3);g.over=true}}
+    else{const b=a;a=null;lk=true;setTimeout(()=>{b.s=k.s=0;lk=false},700)}};
+  g.step=dt=>tick(g,dt);
+  g.draw=()=>{bg('#FFF1D6');c.forEach((k,i)=>{const x=10+(i%4)*77,y=80+Math.floor(i/4)*95;cx.fillStyle=k.s?'#fff':'#FF8DB5';cx.fillRect(x,y,70,85);em(k.s?k.e:'❓',x+35,y+43,40)});hud(g)};
+  return g}
+
+/* 🎨 لمّة الألوان: اضغطي على نفس لون الدايرة الكبيرة */
+function colorGame(){const C=['#E53935','#1E88E5','#43A047','#FDD835','#FF5C9A','#8E24AA','#FB8C00'];
+  const g={score:0,r:0,over:false};let tg,op;const nx=()=>{op=[...C].sort(()=>Math.random()-.5).slice(0,4);tg=op[Math.floor(Math.random()*4)]};nx();
+  cv.onpointerdown=e=>{const[x,y]=px(e);if(y<180)return;const i=(x>160?1:0)+(y>280?2:0);
+    if(op[i]===tg){g.score++;tone(800,.15);if(++g.r>=10)g.over=true;else nx()}else tone(150,.2,'sawtooth')};
+  g.step=()=>{};
+  g.draw=()=>{bg('#FFF1D6');txt('اضغطي على نفس اللون 👇',160,28,18,INK);const dot=(c,x,y,r)=>{cx.fillStyle=c;cx.beginPath();cx.arc(x,y,r,0,7);cx.fill()};
+    dot(tg,160,100,50);op.forEach((c,i)=>dot(c,80+(i%2)*160,230+Math.floor(i/2)*100,45));txt(g.r+'/10',160,408,16,INK)};
+  return g}
+
+/* 🎈 فرقعة البالونات: اضغطي على البالونات قبل ما تطير! */
+function balloonGame(){const g={score:0,t:30,o:[],sw:0,over:false};
+  cv.onpointerdown=e=>{const[x,y]=px(e);for(const o of g.o)if(!o.d&&Math.hypot(o.x-x,o.y-y)<36){o.d=1;g.score++;tone(500+R(0,400),.1,'square');break}};
+  g.step=dt=>{tick(g,dt);g.sw-=dt;if(g.sw<=0){g.sw=.4;g.o.push({x:R(30,290),y:450,v:R(90,170)})}
+    for(const o of g.o)o.y-=o.v*dt;g.o=g.o.filter(o=>o.y>-40&&!o.d)};
+  g.draw=()=>{bg('#CDEBFF');for(const o of g.o)em('🎈',o.x,o.y,60);hud(g)};
+  return g}
+
+/* 🐭 اضربي الفار: اضغطي على الفئران اللي بتطلع من الجحور */
+function whackGame(){const g={score:0,t:30,h:Array(9).fill(0),sw:0,over:false};
+  const P=i=>[60+(i%3)*100,170+Math.floor(i/3)*95];
+  cv.onpointerdown=e=>{const[x,y]=px(e);g.h.forEach((v,i)=>{const[hx,hy]=P(i);if(v>0&&Math.hypot(x-hx,y-hy+10)<44){g.h[i]=0;g.score++;tone(600,.1,'square')}})};
+  g.step=dt=>{tick(g,dt);g.sw-=dt;if(g.sw<=0){g.sw=.55;g.h[Math.floor(Math.random()*9)]=1.1}g.h=g.h.map(v=>Math.max(0,v-dt))};
+  g.draw=()=>{bg('#9EE493');g.h.forEach((v,i)=>{const[x,y]=P(i);cx.fillStyle='#5D4037';cx.beginPath();cx.ellipse(x,y+22,38,15,0,0,7);cx.fill();if(v>0)em('🐭',x,y,52)});hud(g)};
+  return g}
+
+/* 🦘 نطّ ونطّ: اضغطي في أي مكان عشان القطة تنط فوق العوائق */
+function jumpGame(){const g={score:0,lives:3,y:0,vy:0,o:[],sw:1,e:0,inv:0,over:false};
+  cv.onpointerdown=()=>{if(g.y===0){g.vy=520;tone(500,.12,'square')}};
+  g.step=dt=>{g.e+=dt;g.score+=dt*2;g.inv-=dt;g.vy-=1500*dt;g.y=Math.max(0,g.y+g.vy*dt);if(g.y===0)g.vy=0;
+    g.sw-=dt;if(g.sw<=0){g.sw=R(.9,1.6);g.o.push({x:340})}
+    for(const o of g.o){o.x-=(200+g.e*8)*dt;if(g.inv<=0&&Math.abs(o.x-70)<26&&g.y<34){g.lives--;g.inv=1;tone(150,.3,'sawtooth');if(g.lives<1)g.over=true}}
+    g.o=g.o.filter(o=>o.x>-40)};
+  g.draw=()=>{bg('#BDE7FF');cx.fillStyle='#7CD67C';cx.fillRect(0,300,320,120);for(const o of g.o)em('🚧',o.x,284,40);
+    if(g.inv<=0||Math.floor(g.inv*10)%2)em('🐱',70,272-g.y,54);hud(g)};
+  return g}
+
+/* 🔍 مين الغريب؟: دوري على الشكل المختلف */
+function oddGame(){const P=[['🐱','🐶'],['🍎','🍅'],['🐟','🐠'],['🌸','🌼'],['⭐','🌟'],['🐰','🐭']];
+  const g={score:0,r:0,t:45,over:false};let p,od;const nx=()=>{p=P[Math.floor(Math.random()*P.length)];od=Math.floor(Math.random()*9)};nx();
+  cv.onpointerdown=e=>{const[x,y]=px(e),c=Math.floor(x/107),r=Math.floor((y-110)/100);if(r<0||r>2)return;
+    if(r*3+c===od){g.score++;tone(800,.15);if(++g.r>=10)g.over=true;else nx()}else{g.t-=3;tone(150,.2,'sawtooth')}};
+  g.step=dt=>tick(g,dt);
+  g.draw=()=>{bg('#E8F7FF');txt('أين الغريب؟ 🔍',160,48,20,INK);for(let i=0;i<9;i++)em(i===od?p[1]:p[0],53+(i%3)*107,160+Math.floor(i/3)*100,56);hud(g)};
+  return g}
+
+/* قائمة الألعاب في لوحة الاختيار */
+const GAMES=[['ball','⚽','ضربة جزاء',footballGame],['car','🚗','سباق سيارات',carGame],['fish','🐟','صيد السمك',fishGame],
+ ['mem','🃏','لعبة الذاكرة',memGame],['color','🎨','لمّة الألوان',colorGame],['pop','🎈','فرقعة البالونات',balloonGame],
+ ['whack','🐭','اضربي الفار',whackGame],['jump','🦘','نطّ ونطّ',jumpGame],['odd','🔍','مين الغريب؟',oddGame]];
+addEventListener('keydown',e=>{ if(G&&G.tx!==undefined){ if(e.key==='ArrowLeft')G.tx=Math.max(70,G.tx-60); if(e.key==='ArrowRight')G.tx=Math.min(250,G.tx+60) } });
+
+render();
+</script>
+</body>
+</html>

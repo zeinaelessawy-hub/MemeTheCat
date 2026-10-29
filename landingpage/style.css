@@ -1,0 +1,78 @@
+:root{--bg:#FFEAF3;--wall:#FFD9E8;--wall2:#FFC4DB;--wood:#E9AE86;--wood2:#D99A70;--ink:#5A1F45;--card:#ffffffd9;--pink:#FF5C9A;--pink2:#FF8DB5;
+ box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#2A1224;--wall:#4A2340;--wall2:#3A1A31;--wood:#6B4A4A;--wood2:#553838;--ink:#FFE3F0;--card:#3b1a31d9}}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%}
+body{font-family:"Baloo Bhaijaan 2",Tahoma,Arial,sans-serif;color:var(--ink);background:var(--bg);
+ display:flex;flex-direction:column;align-items:center;padding:14px;user-select:none;-webkit-tap-highlight-color:transparent}
+.app{width:100%;max-width:520px}
+h1{margin:0 0 10px;font-size:2rem;font-weight:800;text-align:center}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.stat{background:var(--card);border-radius:16px;padding:6px 8px;text-align:center;font-size:1.3rem;box-shadow:0 3px 10px #c2185b22}
+.bar{height:10px;border-radius:5px;background:#0002;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:5px;transition:width .4s;background:linear-gradient(90deg,#FF5C9A,#FFA1C6)}
+.stage{position:relative;margin-top:10px;aspect-ratio:1/.95;border-radius:30px;overflow:hidden;box-shadow:0 14px 30px #c2185b33,inset 0 0 0 4px #fff8;
+ background:repeating-linear-gradient(90deg,#fff3 0 16px,transparent 16px 32px),linear-gradient(var(--wall),var(--wall2))}
+/* ===== الغرفة: الأرضية والسجادة والنافذة والصور والسرير ===== */
+.floor{position:absolute;left:0;right:0;bottom:0;height:32%;border-top:7px solid #fff;background:repeating-linear-gradient(90deg,#0002 0 2px,transparent 2px 64px),linear-gradient(var(--wood),var(--wood2))}
+.rug{position:absolute;left:6%;bottom:2%;width:56%;height:15%;border-radius:50%;background:radial-gradient(ellipse,#FFE3EF 0 34%,#FF8DB5 35% 62%,#FFB3CF 63%);box-shadow:0 4px 8px #0003}
+.window{position:absolute;left:8%;top:9%;width:26%;height:32%;border:7px solid #fff;border-radius:14px 14px 4px 4px;background:linear-gradient(#8fd3ff,#e3f6ff);box-shadow:0 4px 8px #0002;overflow:hidden}
+.window::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:6px;background:#fff;transform:translateX(-50%)}
+.window::after{content:"☁️";position:absolute;left:10%;top:16%;font-size:1.5rem}
+.curtain{position:absolute;top:7%;width:7%;height:38%;background:linear-gradient(90deg,#FF8DB5,#FFB3CF);border-radius:0 0 40% 40%;box-shadow:0 3px 6px #0002}
+.c1{left:3%}.c2{left:32%}
+.frame{position:absolute;display:grid;place-items:center;font-size:1.7rem;background:#FFF6FA;border:5px solid #fff;border-radius:6px;box-shadow:0 3px 6px #0003,inset 0 0 0 3px #FFB3CF}
+.f1{left:44%;top:11%;width:15%;height:19%}.f2{left:63%;top:16%;width:11%;height:13%;font-size:1.3rem}
+.bed{position:absolute;right:3%;bottom:6%;width:38%;height:24%;z-index:1}
+.bed i{position:absolute;display:block}
+.bed .base{left:0;bottom:0;width:94%;height:20%;background:linear-gradient(#B76E8E,#8E4A6B);border-radius:4px 4px 8px 8px}
+.bed .mat{left:0;bottom:14%;width:94%;height:42%;background:linear-gradient(#fff,#FFE3EF);border-radius:14px;box-shadow:0 4px 0 #c2185b33}
+.bed .head{right:0;bottom:0;width:10%;height:100%;background:linear-gradient(90deg,#B76E8E,#8E4A6B);border-radius:14px 14px 4px 4px}
+.bed .pil{right:12%;bottom:48%;width:30%;height:28%;background:linear-gradient(#fff,#FFD3E5);border-radius:40%;box-shadow:0 2px 4px #0002}
+.blanket{position:absolute;right:3%;bottom:7%;width:34%;height:21%;z-index:3;background:repeating-linear-gradient(90deg,#FF8DB5 0 14px,#FF6FA5 14px 28px);border-radius:14px 14px 10px 10px;box-shadow:0 -3px 6px #0002;opacity:0;transform:translateY(30%);transition:.4s;pointer-events:none}
+.blanket.on{opacity:1;transform:none}
+.bubble{position:absolute;top:10px;left:50%;transform:translateX(-50%);z-index:5;background:#fff;color:#5A1F45;border-radius:22px;padding:6px 18px;font-size:1.25rem;font-weight:800;box-shadow:0 4px 0 #c2185b22;white-space:nowrap}
+#catwrap{position:absolute;bottom:4%;left:38%;width:50%;transform:translateX(-50%);transition:left 1s ease-in-out,transform .5s,bottom .5s;z-index:2}
+#cat{width:100%;display:block;cursor:pointer;filter:drop-shadow(0 10px 8px #c2185b33);touch-action:manipulation}
+#head{transition:transform .2s;transform-origin:150px 215px}
+.pupil{transition:transform .08s}
+.tail{transform-origin:222px 250px;animation:tail 2.2s ease-in-out infinite}
+.body{transform-origin:150px 280px;animation:breathe 3s ease-in-out infinite}
+@keyframes tail{50%{transform:rotate(-16deg)}}
+@keyframes breathe{50%{transform:scaleY(1.025)}}
+.run #cat{animation:bob .3s infinite}
+@keyframes bob{50%{transform:translateY(-14px) scale(1.03,.97)}}
+.wiggle #cat{animation:wig .5s}
+@keyframes wig{25%{transform:rotate(-4deg)}75%{transform:rotate(4deg)}}
+/* ===== الكورة ===== */
+.ball{position:absolute;bottom:6%;left:20%;width:54px;height:54px;border-radius:50%;z-index:3;transform:translateX(-50%);transition:left .8s ease-out;box-shadow:0 9px 8px #0003}
+.ball i{position:absolute;inset:0;border-radius:50%;background:conic-gradient(#FF5C9A 0 60deg,#fff 60deg 120deg,#FFC93C 120deg 180deg,#fff 180deg 240deg,#4FC3F7 240deg 300deg,#fff 300deg 360deg)}
+.ball::after{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle at 32% 26%,#fffb 0 10%,transparent 32%),radial-gradient(circle at 72% 78%,#0004,transparent 58%)}
+.ball.roll{animation:hop .4s 2}.ball.roll i{animation:spin .8s linear}
+@keyframes hop{50%{transform:translate(-50%,-60px)}}
+@keyframes spin{to{transform:rotate(720deg)}}
+.float{position:absolute;font-size:2.1rem;pointer-events:none;z-index:6;animation:up 1.2s ease-out forwards}
+@keyframes up{to{transform:translateY(-110px);opacity:0}}
+.menu{margin-top:12px;background:var(--card);border-radius:24px;padding:12px;box-shadow:0 8px 20px #c2185b22}
+.menu h2{margin:2px 4px 6px;font-size:1.05rem}
+.row{display:grid;grid-template-columns:repeat(auto-fit,minmax(78px,1fr));gap:8px;margin-bottom:10px}
+button{font:inherit;font-weight:800;font-size:1rem;color:#5A1F45;border:0;border-radius:18px;padding:8px 4px;min-height:64px;cursor:pointer;
+ background:linear-gradient(#fff,#FFD3E5);box-shadow:0 5px 0 #e0558a66,0 8px 12px #c2185b22;transition:transform .1s,box-shadow .1s}
+button b{display:block;font-size:1.7rem;line-height:1.1}
+button:active{transform:translateY(4px);box-shadow:0 1px 0 #e0558a66}
+button:focus-visible{outline:4px solid var(--ink);outline-offset:2px}
+.act{background:linear-gradient(#FF8DB5,#FF5C9A);color:#fff}
+.act.on{background:linear-gradient(#C45CFF,#8E3BE0)}
+.hint{text-align:center;font-size:1rem;opacity:.8;margin:6px 0 0}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+
+/* ===== الألعاب (Pou style) ===== */
+.coins{text-align:center;font-size:1.15rem;font-weight:800;margin:-4px 0 8px}
+.game{position:fixed;inset:0;z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:10px;background:var(--bg)}
+.game[hidden]{display:none}
+.gbar{display:flex;align-items:center;gap:12px;font-size:1.3rem;font-weight:800}
+.gbar button{min-height:44px;padding:4px 14px}
+#cv{width:min(92vw,360px);max-height:66vh;aspect-ratio:320/420;border-radius:24px;box-shadow:0 12px 28px #c2185b44,0 0 0 5px #fff;touch-action:none}
+.gctl{display:flex;gap:14px}.gctl button{width:110px;font-size:2rem}
+.pgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:min(94vw,440px);max-height:78vh;overflow:auto;padding:6px}
+.pgrid button{min-height:100px;font-size:.95rem;line-height:1.2}.pgrid button b{font-size:2.4rem}
